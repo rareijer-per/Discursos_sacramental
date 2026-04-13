@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asignación de Discursos — Barrio Burgos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-900: #0a1f44;
+      --blue-800: #102a5c;
+      --blue-700: #1a3d7c;
+      --blue-600: #1e4d9e;
+      --blue-500: #2563c4;
+      --blue-400: #4a80d8;
+      --blue-300: #7aaae8;
+      --blue-200: #b8d2f5;
+      --blue-100: #ddeafb;
+      --blue-50:  #eef5fd;
+      --white: #ffffff;
+      --off-white: #f8fafd;
+      --text-primary: #0a1f44;
+      --text-secondary: #3a5080;
+      --text-muted: #7090b8;
+      --border: rgba(30, 77, 158, 0.15);
+      --border-strong: rgba(30, 77, 158, 0.3);
+      --shadow-sm: 0 2px 8px rgba(10, 31, 68, 0.08);
+      --shadow-md: 0 6px 24px rgba(10, 31, 68, 0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--off-white);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: var(--blue-900);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+    .header-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 2rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+    .header-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .header-icon svg { width: 26px; height: 26px; stroke: white; }
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .header-text p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      letter-spacing: 0.03em;
+    }
+
+    /* Nav strip */
+    .nav-strip {
+      background: var(--blue-800);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-strip-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 0;
+    }
+    .nav-tab {
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .nav-tab.active {
+      color: white;
+      border-bottom-color: var(--blue-300);
+    }
+    .nav-tab:hover:not(.active) { color: rgba(255,255,255,0.7); }
+
+    /* Main */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Form section */
+    .form-section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue-500);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14.5px;
+      color: var(--text-primary);
+      background: white;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a3d7c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px rgba(37, 99, 196, 0.12);
+    }
+    .field input::placeholder { color: var(--text-muted); font-weight: 300; }
+    .field textarea { min-height: 72px; resize: vertical; line-height: 1.5; }
+
+    /* Generate button */
+    .btn-generate {
+      width: 100%;
+      padding: 13px;
+      background: var(--blue-700);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.25rem;
+    }
+    .btn-generate:hover { background: var(--blue-600); }
+    .btn-generate:active { transform: scale(0.99); }
+    .btn-generate svg { width: 18px; height: 18px; stroke: white; }
+
+    /* Letter output */
+    .letter-wrapper { display: none; }
+    .letter-wrapper.show { display: block; animation: fadeIn 0.35s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .letter-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .letter-toolbar span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue-500);
+    }
+    .btn-toolbar {
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      font-family: 'Source Sans 3', sans-serif;
+      transition: all 0.15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-copy {
+      background: white;
+      color: var(--blue-700);
+      border: 1px solid var(--border-strong);
+    }
+    .btn-copy:hover { background: var(--blue-50); border-color: var(--blue-400); }
+    .btn-print {
+      background: var(--blue-700);
+      color: white;
+      border: 1px solid var(--blue-700);
+    }
+    .btn-print:hover { background: var(--blue-600); }
+
+    .letter-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .letter-top-bar {
+      background: var(--blue-900);
+      padding: 18px 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .letter-top-bar .org {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: white;
+      font-weight: 400;
+    }
+    .letter-top-bar .suborg {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 2px;
+    }
+    .letter-top-bar .seal {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .letter-top-bar .seal svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.8); }
+
+    .letter-body {
+      padding: 2rem 2.25rem 2.5rem;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    .letter-body .fecha-line {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .letter-body .destinatario {
+      font-weight: 600;
+      color: var(--blue-800);
+      font-size: 16px;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .letter-body .tema-box {
+      background: var(--blue-50);
+      border-left: 3px solid var(--blue-500);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 16px;
+      margin: 1.25rem 0;
+      font-style: italic;
+      color: var(--blue-800);
+      font-size: 15px;
+    }
+    .letter-body .firma {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .letter-body .firma-name {
+      font-weight: 600;
+      color: var(--blue-800);
+      font-size: 15px;
+    }
+    .letter-body .firma-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* History tab */
+    .history-empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+    .history-empty svg { width: 48px; height: 48px; stroke: var(--blue-200); margin-bottom: 12px; }
+    .history-empty p { font-size: 15px; }
+
+    .history-list { display: flex; flex-direction: column; gap: 10px; }
+    .history-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .history-item:hover { border-color: var(--blue-400); box-shadow: var(--shadow-md); }
+    .history-item .hi-name { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+    .history-item .hi-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .history-item .hi-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--blue-100);
+      color: var(--blue-700);
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+
+    .btn-clear {
+      background: none;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: 13px;
+      padding: 7px 14px;
+      cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif;
+      margin-bottom: 16px;
+      transition: all 0.15s;
+    }
+    .btn-clear:hover { border-color: #c0392b; color: #c0392b; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: var(--blue-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 560px) {
+      .field-row { grid-template-columns: 1fr; }
+      .header-text h1 { font-size: 1.35rem; }
+      main { padding: 1.25rem 1rem; }
+      .letter-body { padding: 1.5rem; }
+    }
+
+    @media print {
+      header, .nav-strip, .form-section, .btn-generate, .letter-toolbar, .btn-toolbar, .nav-tab { display: none !important; }
+      main { padding: 0; }
+      .letter-wrapper { display: block !important; }
+      .letter-card { box-shadow: none; border: none; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1>Asignación de Discursos</h1>
+        <p>Barrio Burgos &nbsp;·&nbsp; Iglesia de Jesucristo de los Santos de los Últimos Días</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-strip">
+    <div class="nav-strip-inner">
+      <div class="nav-tab active" onclick="showPanel('form', this)">Nueva asignación</div>
+      <div class="nav-tab" onclick="showPanel('history', this)">Historial</div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- PANEL: FORM -->
+    <div class="panel active" id="panel-form">
+
+      <div class="form-section">
+        <p class="section-label">Orador</p>
+        <div class="field-row">
+          <div class="field">
+            <label>Título</label>
+            <select id="titulo">
+              <option value="Hermano">Hermano</option>
+              <option value="Hermana">Hermana</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Nombre completo</label>
+            <input type="text" id="nombre" placeholder="Ej. Juan García López" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="section-label">Detalles del discurso</p>
+        <div class="field">
+          <label>Tema del discurso</label>
+          <input type="text" id="tema" placeholder="Ej. La fe como principio de acción y poder" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Duración del mensaje</label>
+            <select id="tiempo">
+              <option value="5">5 minutos</option>
+              <option value="10">10 minutos</option>
+              <option value="15" selected>15 minutos</option>
+              <option value="20">20 minutos</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Fecha del discurso</label>
+            <input type="date" id="fecha" />
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-generate" onclick="generarCarta()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        Generar carta de asignación
+      </button>
+
+      <div class="letter-wrapper" id="letter-wrapper">
+        <div style="height:1.75rem;"></div>
+        <div class="letter-toolbar">
+          <span>Vista previa</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-toolbar btn-copy" onclick="copiarCarta()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar
+            </button>
+            <button class="btn-toolbar btn-print" onclick="window.print()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Imprimir
+            </button>
+          </div>
+        </div>
+        <div class="letter-card">
+          <div class="letter-top-bar">
+            <div>
+              <div class="org">Barrio Burgos</div>
+              <div class="suborg">Iglesia de Jesucristo de los Santos de los Últimos Días</div>
+            </div>
+            <div class="seal">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 8v4l3 3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="letter-body" id="letter-body"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PANEL: HISTORY -->
+    <div class="panel" id="panel-history">
+      <div id="history-content"></div>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Init date
+    const fechaInput = document.getElementById('fecha');
+    const hoy = new Date();
+    fechaInput.value = hoy.toISOString().split('T')[0];
+
+    // History stored in memory (resets on reload) + localStorage
+    let historial = JSON.parse(localStorage.getItem('burgos_historial') || '[]');
+
+    function showPanel(name, tab) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      tab.classList.add('active');
+      if (name === 'history') renderHistory();
+    }
+
+    function formatearFecha(val) {
+      if (!val) return '';
+      const [y, m, d] = val.split('-');
+      const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+      return `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${y}`;
+    }
+
+    function generarCarta() {
+      const titulo  = document.getElementById('titulo').value;
+      const nombre  = document.getElementById('nombre').value.trim();
+      const tiempo  = document.getElementById('tiempo').value;
+      const tema    = document.getElementById('tema').value.trim();
+      const fecha   = document.getElementById('fecha').value;
+
+      if (!nombre) { showToast('Por favor ingresa el nombre del orador.'); return; }
+      if (!tema)   { showToast('Por favor ingresa el tema del discurso.');  return; }
+
+      const fechaStr = formatearFecha(fecha);
+      const saludo   = titulo === 'Hermana' ? 'Estimada' : 'Estimado';
+      const invitado = titulo === 'Hermana' ? 'invitada' : 'invitado';
+      const articulo = titulo === 'Hermana' ? 'la' : 'el';
+
+      const body = document.getElementById('letter-body');
+      body.innerHTML = '';
+
+      const fechaEl = document.createElement('span');
+      fechaEl.className = 'fecha-line';
+      fechaEl.textContent = fechaStr;
+      body.appendChild(fechaEl);
+
+      const dest = document.createElement('span');
+      dest.className = 'destinatario';
+      dest.textContent = `${saludo} ${titulo} ${nombre}:`;
+      body.appendChild(dest);
+
+      const p1 = document.createElement('p');
+      p1.style.marginBottom = '1rem';
+      p1.textContent = `Con mucho gusto me dirijo a usted de parte del obispado del Barrio Burgos para extenderle una cordial invitación a participar en nuestra reunión sacramental.`;
+      body.appendChild(p1);
+
+      const p2 = document.createElement('p');
+      p2.style.marginBottom = '0.5rem';
+      p2.textContent = `Usted ha sido ${invitado} a presentar un discurso sobre el siguiente tema:`;
+      body.appendChild(p2);
+
+      const temaBox = document.createElement('div');
+      temaBox.className = 'tema-box';
+      temaBox.textContent = `"${tema}"`;
+      body.appendChild(temaBox);
+
+      const p3 = document.createElement('p');
+      p3.style.marginBottom = '1rem';
+      p3.textContent = `Le pedimos amablemente que su mensaje tenga una duración aproximada de ${tiempo} minutos.`;
+      body.appendChild(p3);
+
+      const p4 = document.createElement('p');
+      p4.style.marginBottom = '1rem';
+      p4.textContent = `Confiamos plenamente en que el Señor le guiará en su esfuerzo por enseñar a sus hermanos la doctrina del evangelio y las enseñanzas del Salvador. Su testimonio y preparación serán una bendición para todos los miembros del barrio presentes en esa reunión.`;
+      body.appendChild(p4);
+
+      const p5 = document.createElement('p');
+      p5.textContent = `Si tiene alguna pregunta o necesita confirmación, no dude en comunicarse con el secretario del barrio.`;
+      body.appendChild(p5);
+
+      const firma = document.createElement('div');
+      firma.className = 'firma';
+      firma.innerHTML = `
+        <p style="margin-bottom:4px;color:var(--text-secondary);font-size:14px;">Atentamente,</p>
+        <p class="firma-name">El Obispado del Barrio Burgos</p>
+        <p class="firma-sub">Iglesia de Jesucristo de los Santos de los Últimos Días</p>
+      `;
+      body.appendChild(firma);
+
+      // Show letter
+      const wrapper = document.getElementById('letter-wrapper');
+      wrapper.classList.add('show');
+      wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Save to history
+      const entry = { titulo, nombre, tiempo, tema, fecha: fechaStr, ts: Date.now() };
+      historial.unshift(entry);
+      if (historial.length > 50) historial.pop();
+      localStorage.setItem('burgos_historial', JSON.stringify(historial));
+    }
+
+    function copiarCarta() {
+      const titulo  = document.getElementById('titulo').value;
+      const nombre  = document.getElementById('nombre').value.trim();
+      const tiempo  = document.getElementById('tiempo').value;
+      const tema    = document.getElementById('tema').value.trim();
+      const fecha   = document.getElementById('fecha').value;
+      const fechaStr = formatearFecha(fecha);
+      const saludo   = titulo === 'Hermana' ? 'Estimada' : 'Estimado';
+      const invitado = titulo === 'Hermana' ? 'invitada' : 'invitado';
+      const articulo = titulo === 'Hermana' ? 'la' : 'el';
+
+      const texto = `Barrio Burgos\nIglesia de Jesucristo de los Santos de los Últimos Días\n\n${fechaStr}\n\n${saludo} ${titulo} ${nombre}:\n\nCon mucho gusto me dirijo a usted de parte del obispado del Barrio Burgos para extenderle una cordial invitación a participar en nuestra reunión sacramental.\n\nUsted ha sido ${invitado} a presentar un discurso sobre el siguiente tema:\n\n    "${tema}"\n\nLe pedimos amablemente que su mensaje tenga una duración aproximada de ${tiempo} minutos.\n\nConfiamos plenamente en que el Señor le guiará en su esfuerzo por enseñar a sus hermanos la doctrina del evangelio y las enseñanzas del Salvador. Su testimonio y preparación serán una bendición para todos los miembros del barrio presentes en esa reunión.\n\nSi tiene alguna pregunta o necesita confirmación, no dude en comunicarse con el secretario del barrio.\n\nAtentamente,\n\nEl Obispado del Barrio Burgos\nIglesia de Jesucristo de los Santos de los Últimas Días`;
+
+      navigator.clipboard.writeText(texto).then(() => showToast('Carta copiada al portapapeles'));
+    }
+
+    function renderHistory() {
+      const el = document.getElementById('history-content');
+      if (historial.length === 0) {
+        el.innerHTML = `<div class="history-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <p>Aún no hay cartas generadas.<br>Las asignaciones aparecerán aquí.</p>
+        </div>`;
+        return;
+      }
+      el.innerHTML = `<button class="btn-clear" onclick="clearHistory()">Limpiar historial</button>
+        <div class="history-list">${historial.map((h,i) => `
+          <div class="history-item" onclick="loadEntry(${i})">
+            <div>
+              <div class="hi-name">${h.titulo} ${h.nombre}</div>
+              <div class="hi-meta">${h.tema} &nbsp;·&nbsp; ${h.fecha}</div>
+            </div>
+            <span class="hi-badge">${h.tiempo} min</span>
+          </div>`).join('')}
+        </div>`;
+    }
+
+    function loadEntry(i) {
+      const h = historial[i];
+      document.getElementById('titulo').value = h.titulo;
+      document.getElementById('nombre').value = h.nombre;
+      document.getElementById('tiempo').value = h.tiempo;
+      document.getElementById('tema').value = h.tema;
+      showPanel('form', document.querySelectorAll('.nav-tab')[0]);
+      generarCarta();
+    }
+
+    function clearHistory() {
+      if (confirm('¿Limpiar todo el historial?')) {
+        historial = [];
+        localStorage.removeItem('burgos_historial');
+        renderHistory();
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+  </script>
+
+</body>
+</html>
