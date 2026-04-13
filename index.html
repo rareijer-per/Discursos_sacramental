@@ -495,7 +495,7 @@
             </select>
           </div>
           <div class="field">
-            <label>Fecha de la reunión</label>
+            <label>Fecha del discurso</label>
             <input type="date" id="fecha" />
           </div>
         </div>
@@ -629,7 +629,7 @@
       body.appendChild(p4);
 
       const p5 = document.createElement('p');
-      p5.textContent = `Si tiene alguna pregunta o necesita confirmación, no dude en comunicarse con ${articulo} secretario del barrio.`;
+      p5.textContent = `Si tiene alguna pregunta o necesita confirmación, no dude en comunicarse con el secretario del barrio.`;
       body.appendChild(p5);
 
       const firma = document.createElement('div');
@@ -664,7 +664,7 @@
       const invitado = titulo === 'Hermana' ? 'invitada' : 'invitado';
       const articulo = titulo === 'Hermana' ? 'la' : 'el';
 
-      const texto = `Barrio Burgos\nIglesia de Jesucristo de los Santos de los Últimos Días\n\n${fechaStr}\n\n${saludo} ${titulo} ${nombre}:\n\nCon mucho gusto me dirijo a usted de parte del obispado del Barrio Burgos para extenderle una cordial invitación a participar en nuestra reunión sacramental.\n\nUsted ha sido ${invitado} a presentar un discurso sobre el siguiente tema:\n\n    "${tema}"\n\nLe pedimos amablemente que su mensaje tenga una duración aproximada de ${tiempo} minutos.\n\nConfiamos plenamente en que el Señor le guiará en su esfuerzo por enseñar a sus hermanos la doctrina del evangelio y las enseñanzas del Salvador. Su testimonio y preparación serán una bendición para todos los miembros del barrio presentes en esa reunión.\n\nSi tiene alguna pregunta o necesita confirmación, no dude en comunicarse con ${articulo} secretario del barrio.\n\nAtentamente,\n\nEl Obispado del Barrio Burgos\nIglesia de Jesucristo de los Santos de los Últimas Días`;
+      const texto = `Barrio Burgos\nIglesia de Jesucristo de los Santos de los Últimos Días\n\n${fechaStr}\n\n${saludo} ${titulo} ${nombre}:\n\nCon mucho gusto me dirijo a usted de parte del obispado del Barrio Burgos para extenderle una cordial invitación a participar en nuestra reunión sacramental.\n\nUsted ha sido ${invitado} a presentar un discurso sobre el siguiente tema:\n\n    "${tema}"\n\nLe pedimos amablemente que su mensaje tenga una duración aproximada de ${tiempo} minutos.\n\nConfiamos plenamente en que el Señor le guiará en su esfuerzo por enseñar a sus hermanos la doctrina del evangelio y las enseñanzas del Salvador. Su testimonio y preparación serán una bendición para todos los miembros del barrio presentes en esa reunión.\n\nSi tiene alguna pregunta o necesita confirmación, no dude en comunicarse con el secretario del barrio.\n\nAtentamente,\n\nEl Obispado del Barrio Burgos\nIglesia de Jesucristo de los Santos de los Últimas Días`;
 
       navigator.clipboard.writeText(texto).then(() => showToast('Carta copiada al portapapeles'));
     }
